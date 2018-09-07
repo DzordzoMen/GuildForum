@@ -1,0 +1,14 @@
+C:\Users\mromanowski\source\repos\TestGuildForum\TestGuildForum\bin\Debug\netcoreapp2.1\TestGuildForum.deps.json
+C:\Users\mromanowski\source\repos\TestGuildForum\TestGuildForum\bin\Debug\netcoreapp2.1\TestGuildForum.runtimeconfig.json
+C:\Users\mromanowski\source\repos\TestGuildForum\TestGuildForum\bin\Debug\netcoreapp2.1\TestGuildForum.runtimeconfig.dev.json
+C:\Users\mromanowski\source\repos\TestGuildForum\TestGuildForum\bin\Debug\netcoreapp2.1\TestGuildForum.dll
+C:\Users\mromanowski\source\repos\TestGuildForum\TestGuildForum\bin\Debug\netcoreapp2.1\TestGuildForum.pdb
+C:\Users\mromanowski\source\repos\TestGuildForum\TestGuildForum\obj\Debug\netcoreapp2.1\TestGuildForum.csprojAssemblyReference.cache
+C:\Users\mromanowski\source\repos\TestGuildForum\TestGuildForum\obj\Debug\netcoreapp2.1\TestGuildForum.csproj.CoreCompileInputs.cache
+C:\Users\mromanowski\source\repos\TestGuildForum\TestGuildForum\obj\Debug\netcoreapp2.1\TestGuildForum.RazorAssemblyInfo.cache
+C:\Users\mromanowski\source\repos\TestGuildForum\TestGuildForum\obj\Debug\netcoreapp2.1\TestGuildForum.RazorAssemblyInfo.cs
+C:\Users\mromanowski\source\repos\TestGuildForum\TestGuildForum\obj\Debug\netcoreapp2.1\TestGuildForum.AssemblyInfoInputs.cache
+C:\Users\mromanowski\source\repos\TestGuildForum\TestGuildForum\obj\Debug\netcoreapp2.1\TestGuildForum.AssemblyInfo.cs
+C:\Users\mromanowski\source\repos\TestGuildForum\TestGuildForum\obj\Debug\netcoreapp2.1\TestGuildForum.RazorTargetAssemblyInfo.cache
+C:\Users\mromanowski\source\repos\TestGuildForum\TestGuildForum\obj\Debug\netcoreapp2.1\TestGuildForum.dll
+C:\Users\mromanowski\source\repos\TestGuildForum\TestGuildForum\obj\Debug\netcoreapp2.1\TestGuildForum.pdb
