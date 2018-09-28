@@ -48,5 +48,15 @@ namespace GuildForum.Controllers {
       _context.SaveChanges();
       return Ok();
     }
+
+    [HttpPut("authorize/{idUser}")]
+    public IActionResult GiveUserRank(int idUser, int idRank) {
+      var user = _context.Users
+        .SingleOrDefault(u => u.UserID == idUser);
+      if (user == null) return NotFound();
+      user.RankID = idRank;
+      _context.Users.Update(user);
+      return Ok();
+    }
   }
 }

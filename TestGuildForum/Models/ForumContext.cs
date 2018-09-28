@@ -3,10 +3,13 @@ using GuildForum.Models.Articles;
 using GuildForum.Models.Events;
 using GuildForum.Models.Ranks;
 using GuildForum.Models.Users;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 
 namespace GuildForum.Models {
-  public class ForumContext : DbContext {
+  public class ForumContext : IdentityDbContext<ApplicationUser> {
+
+    //public DbSet<SettingsDataModel> Settings { get; set; }
 
     public ForumContext(DbContextOptions<ForumContext> options) : base(options) {
     }
@@ -21,6 +24,8 @@ namespace GuildForum.Models {
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
       modelBuilder.Entity<EventMember>()
         .HasKey(m => new {m.EventID, m.UserID});
+
+      base.OnModelCreating(modelBuilder);
     }
   }
 }

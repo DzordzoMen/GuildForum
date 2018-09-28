@@ -12,3 +12,17 @@ C:\Users\mromanowski\source\repos\TestGuildForum\TestGuildForum\obj\Debug\netcor
 C:\Users\mromanowski\source\repos\TestGuildForum\TestGuildForum\bin\Debug\netcoreapp2.1\GuildForum.pdb
 C:\Users\mromanowski\source\repos\TestGuildForum\TestGuildForum\obj\Debug\netcoreapp2.1\GuildForum.dll
 C:\Users\mromanowski\source\repos\TestGuildForum\TestGuildForum\obj\Debug\netcoreapp2.1\GuildForum.pdb
+C:\Users\mromanowski\source\repos\git\guildforum\TestGuildForum\bin\Debug\netcoreapp2.1\GuildForum.deps.json
+C:\Users\mromanowski\source\repos\git\guildforum\TestGuildForum\bin\Debug\netcoreapp2.1\GuildForum.runtimeconfig.json
+C:\Users\mromanowski\source\repos\git\guildforum\TestGuildForum\bin\Debug\netcoreapp2.1\GuildForum.runtimeconfig.dev.json
+C:\Users\mromanowski\source\repos\git\guildforum\TestGuildForum\bin\Debug\netcoreapp2.1\GuildForum.dll
+C:\Users\mromanowski\source\repos\git\guildforum\TestGuildForum\bin\Debug\netcoreapp2.1\GuildForum.pdb
+C:\Users\mromanowski\source\repos\git\guildforum\TestGuildForum\obj\Debug\netcoreapp2.1\GuildForum.csprojAssemblyReference.cache
+C:\Users\mromanowski\source\repos\git\guildforum\TestGuildForum\obj\Debug\netcoreapp2.1\GuildForum.csproj.CoreCompileInputs.cache
+C:\Users\mromanowski\source\repos\git\guildforum\TestGuildForum\obj\Debug\netcoreapp2.1\GuildForum.RazorAssemblyInfo.cache
+C:\Users\mromanowski\source\repos\git\guildforum\TestGuildForum\obj\Debug\netcoreapp2.1\GuildForum.RazorAssemblyInfo.cs
+C:\Users\mromanowski\source\repos\git\guildforum\TestGuildForum\obj\Debug\netcoreapp2.1\GuildForum.AssemblyInfoInputs.cache
+C:\Users\mromanowski\source\repos\git\guildforum\TestGuildForum\obj\Debug\netcoreapp2.1\GuildForum.AssemblyInfo.cs
+C:\Users\mromanowski\source\repos\git\guildforum\TestGuildForum\obj\Debug\netcoreapp2.1\GuildForum.RazorTargetAssemblyInfo.cache
+C:\Users\mromanowski\source\repos\git\guildforum\TestGuildForum\obj\Debug\netcoreapp2.1\GuildForum.dll
+C:\Users\mromanowski\source\repos\git\guildforum\TestGuildForum\obj\Debug\netcoreapp2.1\GuildForum.pdb

@@ -12,14 +12,8 @@ namespace GuildForum.Models.Users {
     [Required, Column("rank_id")]
     public int RankID { get; set; }
 
-    [Required]
-    public string Login { get; set; }
-
-    [Required]
-    public string Password { get; set; }
-
-    [Required]
-    public string Email { get; set; }
+    [Required, Column("identity_id")]
+    public string IdentityID { get; set; }
 
     [Required]
     public string Nick { get; set; }
@@ -35,5 +29,7 @@ namespace GuildForum.Models.Users {
     public bool Ban { get; set; } = false;
 
     public Rank Rank { get; set; }
+
+    public ApplicationUser ApplicationUser { get; set; }
   }
 }
