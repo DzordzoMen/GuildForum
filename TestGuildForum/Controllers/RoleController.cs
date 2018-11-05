@@ -15,7 +15,7 @@ namespace GuildForum.Controllers {
     }
 
     [HttpGet]
-    public IActionResult GetRoleList() { // TODO POPRAWIC
+    public IActionResult GetRoleList() {
       var roles = _roleManager.Roles.ToList();
       return Ok(roles);
 

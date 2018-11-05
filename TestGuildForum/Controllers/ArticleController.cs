@@ -18,20 +18,32 @@ namespace GuildForum.Controllers {
     [HttpGet]
     public IActionResult GetAllArticles() {
       var articles = _context.Articles
-        .Include(a => a.User)
-        .Select(a => new {
-          a.ArticleID, 
-          a.User.Nick,
-          a.PostDate, 
-          a.Title, 
-          a.Content, 
-          a.Photo
-        })
-        .OrderBy(a => a.PostDate).ToList();
+        .Join(_context.Users,
+          article => article.UserID,
+          user => user.UserID,
+          (article, user) => new {article, user})
+        .Join(_context.IdentityUserRoles,
+          entity => entity.user.IdentityID,
+          userRoles => userRoles.UserId,
+          (entity, userRoles) => new {entity.article, entity.user, userRoles})
+        .Join(_context.IdentityRoles,
+          entity => entity.userRoles.RoleId,
+          role => role.Id,
+          (entity, role) => new {entity.user, entity.article, entity.userRoles, role})
+        .Select(entity => new {
+          entity.article.ArticleID,
+          entity.user.Nick,
+          roleName = entity.role.Name,
+          entity.article.PostDate,
+          entity.article.Title,
+          entity.article.Content,
+          entity.article.Photo
+        }).OrderBy(entity => entity.PostDate)
+        .ToList();
       return Ok(articles);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id}")] // TODO ROLA?
     public IActionResult GetArticleInfo(int id) {
       var article = _context.Articles
         .Include(c => c.ArticleCommentses)
