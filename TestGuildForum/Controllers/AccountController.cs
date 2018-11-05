@@ -28,7 +28,7 @@ namespace GuildForum.Controllers {
 
     }
     // register
-    [HttpPost("create")]
+    [HttpPost("signup")]
     public async Task<IActionResult> CreateUserAsync(NewUserModel newUser) {
       var result = await _userManager.CreateAsync(new ApplicationUser {
         UserName = newUser.UserName,
@@ -42,16 +42,16 @@ namespace GuildForum.Controllers {
     }
 
     // jesli sie nie uda to przekierowuje do /account/login
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpGet("private")]
     public IActionResult PrivateArea() {
       return Content($"This is a private area. Welcome {HttpContext.User.Identity.Name}", "text/html");
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> LoginAsync(NewUserModel user) {
+    public async Task<IActionResult> LoginAsync(LoginModel login) {
       // sprawdzic dokladnosc tych true co robia      
-      var result = await _signInManager.PasswordSignInAsync(user.UserName, user.Password, true, true);
+      var result = await _signInManager.PasswordSignInAsync(login.UserName, login.Password, true, true);
 
       if (result.Succeeded)
         return Ok();

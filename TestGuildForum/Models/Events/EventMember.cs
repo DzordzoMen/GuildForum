@@ -10,7 +10,7 @@ namespace GuildForum.Models.Events {
     public int EventID { get; set; }
 
     [Required, Column("user_id")]
-    public int UserID { get; set; } // klucz obcy do id userow jest juz w bazie
+    public int UserID { get; set; }
 
     [Required]
     public string Standby { get; set; }

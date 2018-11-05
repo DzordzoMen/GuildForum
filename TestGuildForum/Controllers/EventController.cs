@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using GuildForum.Models;
 using GuildForum.Models.Events;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,6 +30,7 @@ namespace GuildForum.Controllers {
       return Ok(events);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public IActionResult CreateEvent(Event newEvent) {
       _context.Events.Add(newEvent);

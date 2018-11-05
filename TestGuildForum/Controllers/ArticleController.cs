@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using GuildForum.Models;
 using GuildForum.Models.Articles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -56,6 +57,7 @@ namespace GuildForum.Controllers {
       return Ok(article);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public IActionResult CreateArticle(Article article) {
       _context.Articles.Add(article);

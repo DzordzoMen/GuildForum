@@ -2,7 +2,6 @@
 using GuildForum.Models;
 using GuildForum.Models.Events;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace GuildForum.Controllers {
   [Route("api/event/")]
@@ -18,27 +17,47 @@ namespace GuildForum.Controllers {
     [HttpGet("{idEvent}/members")]
     public IActionResult GetEventMembers(int idEvent) {
       var guildEvent = _context.Events
-        .Include(m => m.EventMembers)
-        .ThenInclude(m => m.User)
-        .ThenInclude(u => u.Rank)
-        .Select(e => new {
-          e.EventID, 
-          e.EventDate, 
-          e.EventDescription, 
-          e.EventName, 
-          e.User.Nick, 
-          e.User.Rank.RankName, 
-          e.User.Avatar, 
-          eventMembers = e.EventMembers
-            .Select(m => new {
-              m.EventID, 
-              m.Standby, 
-              m.User.Nick, 
-              m.User.Rank.RankName, 
-              m.User.Avatar
+        .Join(_context.Users,
+          gEvent => gEvent.UserID,
+          user => user.UserID,
+          (gEvent, user) => new {gEvent, user})
+        .GroupJoin(_context.EventMembers,
+          entity => entity.gEvent.EventID,
+          eventMembers => eventMembers.EventID,
+          (entity, eventMembers) => new {entity.gEvent, entity.user, eventMembers})
+        .Join(_context.Groups,
+          entity => entity.user.GroupID,
+          group => group.GroupID,
+          (entity, group) => new {entity.user, entity.gEvent, entity.eventMembers, group})
+        .GroupBy(entity => entity.gEvent.EventID)
+        .Select(grouping => grouping.FirstOrDefault(entity => entity.gEvent.EventID == idEvent))
+        .Where(entity => entity.gEvent.EventID == idEvent)
+        .Select(entity => new {
+          entity.gEvent.EventID,
+          entity.gEvent.EventDate,
+          entity.gEvent.EventDescription,
+          entity.gEvent.EventName,
+          entity.user.Nick,
+          entity.group.GroupName,
+          entity.user.Avatar,
+          eventMembers = entity.eventMembers
+            .Join(_context.Users,
+              eventMember => eventMember.UserID,
+              user => user.UserID,
+              (eventMember, user) => new {eventMember, user})
+            .Join(_context.Groups,
+              userAndEventMember => userAndEventMember.user.GroupID,
+              group => group.GroupID,
+              (userAndEventMember, group) => new {userAndEventMember.eventMember, userAndEventMember.user, group})
+            .Where(userAndEventMember => userAndEventMember.eventMember.UserID == userAndEventMember.user.UserID)
+            .Select(userAndEventMember => new {
+              userAndEventMember.eventMember.EventID,
+              userAndEventMember.eventMember.Standby,
+              userAndEventMember.user.Nick,
+              userAndEventMember.group.GroupName,
+              userAndEventMember.user.Avatar
             })
-        })
-        .SingleOrDefault(e => e.EventID == idEvent);
+        }).SingleOrDefault();
       if (guildEvent == null) return NotFound();
       return Ok(guildEvent);
     }

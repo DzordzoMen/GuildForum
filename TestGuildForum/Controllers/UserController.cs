@@ -1,7 +1,11 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using GuildForum.Models;
+using GuildForum.Models.Response;
+using GuildForum.Models.Users;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace GuildForum.Controllers {
   [Route("api/[controller]")]
@@ -9,23 +13,31 @@ namespace GuildForum.Controllers {
   public class UserController : Controller {
 
     private readonly ForumContext _context;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public UserController(ForumContext context) {
+    public UserController(ForumContext context, UserManager<ApplicationUser> userManager) {
       _context = context;
+      _userManager = userManager;
     }
 
     [HttpGet]
     public IActionResult GetAllUsers() {
       var users = _context.Users
-        .Where(u => u.Ban == false)
-        .Include(u => u.Rank)
-        .Select(u => new {
-          u.UserID,
-          u.Nick, 
-          u.Rank.RankName, 
-          u.Avatar
-        })
-        .ToList();
+        .Join(_context.IdentityUserRoles,
+          user => user.IdentityID,
+          userRoles => userRoles.UserId,
+          (user, userRoles) => new {user, userRoles})
+        .Join(_context.IdentityRoles,
+          entity => entity.userRoles.RoleId,
+          role => role.Id,
+          (entity, role) => new {entity.user, entity.userRoles, role})
+        .Where(entity => entity.user.Ban == false)
+        .Select(entity => new {
+          entity.user.UserID,
+          entity.user.Nick,
+          entity.user.Avatar,
+          roleName = entity.role.Name,
+        }).ToList();
       return Ok(users);
     }
 
@@ -49,13 +61,14 @@ namespace GuildForum.Controllers {
       return Ok();
     }
 
-    [HttpPut("authorize/{idUser}")]
-    public IActionResult GiveUserRank(int idUser, int idRank) {
+    [Authorize(Roles = "Admin")]
+    [HttpPut("{idUser}/authorize")]
+    public async Task<IActionResult> GiveUserRoleAsync(int idUser, AddRole role) {
       var user = _context.Users
         .SingleOrDefault(u => u.UserID == idUser);
       if (user == null) return NotFound();
-      user.RankID = idRank;
-      _context.Users.Update(user);
+      var identityUser = await _userManager.FindByIdAsync(user.IdentityID);
+      await _userManager.AddToRoleAsync(identityUser, role.Name);
       return Ok();
     }
   }

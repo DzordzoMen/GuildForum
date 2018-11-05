@@ -14,7 +14,7 @@ namespace GuildForum.Models.Articles {
     public DateTime PostDate { get; set; }
 
     [Required, Column("user_id")]
-    public int UserID{ get; set; }
+    public int UserID { get; set; }
 
     [Required]
     public string Title { get; set; }

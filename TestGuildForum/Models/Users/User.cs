@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using GuildForum.Models.Ranks;
+using GuildForum.Models.Groups;
 
 namespace GuildForum.Models.Users {
   public class User {
@@ -9,11 +9,11 @@ namespace GuildForum.Models.Users {
     [Key, Column("user_id")]
     public int UserID { get; set; }
 
-    [Required, Column("rank_id")]
-    public int RankID { get; set; }
-
     [Required, Column("identity_id")]
     public string IdentityID { get; set; }
+
+    [Required, Column("group_id")]
+    public int GroupID { get; set; }
 
     [Required]
     public string Nick { get; set; }
@@ -28,8 +28,8 @@ namespace GuildForum.Models.Users {
 
     public bool Ban { get; set; } = false;
 
-    public Rank Rank { get; set; }
-
     public ApplicationUser ApplicationUser { get; set; }
+
+    public Group  Group { get; set; }
   }
 }

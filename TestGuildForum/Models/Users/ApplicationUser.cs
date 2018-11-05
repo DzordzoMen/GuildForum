@@ -2,6 +2,5 @@
 
 namespace GuildForum.Models.Users {
   public class ApplicationUser : IdentityUser {
-
   }
 }

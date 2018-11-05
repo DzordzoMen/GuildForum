@@ -37,7 +37,7 @@ namespace GuildForum {
 
       // zmiana linku gdzie ma przekierowac jak nie jestes zalogowany
       services.ConfigureApplicationCookie(options => {
-        options.LoginPath = "/login";
+        options.LoginPath = "/account/login";
       });
 
 
