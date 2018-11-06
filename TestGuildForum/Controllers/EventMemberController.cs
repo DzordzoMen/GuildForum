@@ -20,15 +20,15 @@ namespace GuildForum.Controllers {
         .Join(_context.Users,
           gEvent => gEvent.UserID,
           user => user.UserID,
-          (gEvent, user) => new {gEvent, user})
+          (gEvent, user) => new { gEvent, user })
         .GroupJoin(_context.EventMembers,
           entity => entity.gEvent.EventID,
           eventMembers => eventMembers.EventID,
-          (entity, eventMembers) => new {entity.gEvent, entity.user, eventMembers})
+          (entity, eventMembers) => new { entity.gEvent, entity.user, eventMembers })
         .Join(_context.Groups,
           entity => entity.user.GroupID,
           group => group.GroupID,
-          (entity, group) => new {entity.user, entity.gEvent, entity.eventMembers, group})
+          (entity, group) => new { entity.user, entity.gEvent, entity.eventMembers, group })
         .GroupBy(entity => entity.gEvent.EventID)
         .Select(grouping => grouping.FirstOrDefault(entity => entity.gEvent.EventID == idEvent))
         .Where(entity => entity.gEvent.EventID == idEvent)
@@ -44,11 +44,11 @@ namespace GuildForum.Controllers {
             .Join(_context.Users,
               eventMember => eventMember.UserID,
               user => user.UserID,
-              (eventMember, user) => new {eventMember, user})
+              (eventMember, user) => new { eventMember, user })
             .Join(_context.Groups,
               userAndEventMember => userAndEventMember.user.GroupID,
               group => group.GroupID,
-              (userAndEventMember, group) => new {userAndEventMember.eventMember, userAndEventMember.user, group})
+              (userAndEventMember, group) => new { userAndEventMember.eventMember, userAndEventMember.user, group })
             .Where(userAndEventMember => userAndEventMember.eventMember.UserID == userAndEventMember.user.UserID)
             .Select(userAndEventMember => new {
               userAndEventMember.eventMember.EventID,

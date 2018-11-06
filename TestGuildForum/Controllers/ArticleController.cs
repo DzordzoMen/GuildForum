@@ -3,7 +3,6 @@ using GuildForum.Models;
 using GuildForum.Models.Articles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace GuildForum.Controllers {
   [Route("api/[controller]")]
@@ -29,7 +28,7 @@ namespace GuildForum.Controllers {
         .Join(_context.IdentityRoles,
           entity => entity.userRoles.RoleId,
           role => role.Id,
-          (entity, role) => new {entity.user, entity.article, entity.userRoles, role})
+          (entity, role) => new {entity.user, entity.article, role})
         .Select(entity => new {
           entity.article.ArticleID,
           entity.user.Nick,
@@ -43,28 +42,49 @@ namespace GuildForum.Controllers {
       return Ok(articles);
     }
 
-    [HttpGet("{id}")] // TODO ROLA?
+    [HttpGet("{id}")] // TODO ROLE FOR COMMENTS?
     public IActionResult GetArticleInfo(int id) {
       var article = _context.Articles
-        .Include(c => c.ArticleCommentses)
-        .ThenInclude(c => c.User)
-        .Select(a => new {
-          a.ArticleID, 
-          a.PostDate, 
-          a.User.Nick, 
-          a.Title, 
-          a.Content, 
-          a.Photo, 
-          articleComments = a.ArticleCommentses
-            .Select(c => new {
-              c.CommentID, 
-              c.PostDate, 
-              c.Content, 
-              c.User.Nick
-            })
-        })
-        .SingleOrDefault(a => a.ArticleID == id);
-
+        .Join(_context.Users,
+          art => art.UserID,
+          user => user.UserID,
+          (art, user) => new { art, user })
+        .GroupJoin(_context.ArticleCommentses,
+          entity => entity.art.ArticleID,
+          comments => comments.ArticleID,
+          (entity, comments) => new { entity.art, entity.user, comments })
+        .Join(_context.IdentityUserRoles,
+          entity => entity.user.IdentityID,
+          userRole => userRole.UserId,
+          (entity, userRole) => new { entity.art, entity.user, entity.comments, userRole })
+        .Join(_context.IdentityRoles,
+          entity => entity.userRole.RoleId,
+          role => role.Id,
+          (entity, role) => new { entity.art, entity.user, entity.comments, role })
+        .GroupBy(entity => entity.art.ArticleID)
+        .Select(grouping => grouping.FirstOrDefault(entity => entity.art.ArticleID == id))
+        .Where(entity => entity.art.ArticleID == id)
+        .Select(entity => new {
+          entity.art.ArticleID,
+          entity.art.PostDate,
+          entity.user.Nick,
+          roleName = entity.role.Name,
+          entity.art.Title,
+          entity.art.Content,
+          entity.art.Photo,
+          articleComments = entity.comments
+          .Join(_context.Users,
+            comment => comment.UserID,
+            user => user.UserID,
+            (comment, user) => new { comment, user })
+          .Where(artComment => artComment.comment.UserID == artComment.user.UserID)
+          .Select(artComment => new {
+            artComment.comment.CommentID,
+            artComment.comment.PostDate,
+            artComment.comment.Content,
+            artComment.user.Nick,
+          })
+        }).SingleOrDefault();
       if (article == null) return NotFound();
       return Ok(article);
     }
