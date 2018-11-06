@@ -20,6 +20,7 @@ namespace GuildForum.Controllers {
       _userManager = userManager;
     }
 
+    [Authorize]  // TODO CHANGE?
     [HttpGet]
     public IActionResult GetAllUsers() {
       var users = _context.Users
@@ -41,6 +42,7 @@ namespace GuildForum.Controllers {
       return Ok(users);
     }
 
+    [Authorize(Roles = "Admin")]  // TODO MORE ROLES TO CREATE, UPDATE AND DELETE
     [HttpPut("{id}")]
     public IActionResult BanUser(int id) {
       var user = _context.Users.Find(id);
@@ -52,6 +54,7 @@ namespace GuildForum.Controllers {
       return Ok();
     }
 
+    [Authorize(Roles = "Admin")]  // TODO MORE ROLES TO CREATE, UPDATE AND DELETE
     [HttpDelete("{id}")]
     public IActionResult DeleteUser(int id) {
       var user = _context.Users.Find(id);

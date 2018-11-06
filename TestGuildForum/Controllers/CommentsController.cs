@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using GuildForum.Models;
 using GuildForum.Models.Articles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GuildForum.Controllers {
@@ -15,6 +16,7 @@ namespace GuildForum.Controllers {
     }
     //  zmienic id_comment tak jak jest w naviq
     //
+    [Authorize] // TODO
     [HttpPost("{idArticle}/comment")]
     public IActionResult CreateComment(int idArticle, ArticleComments comment) {
       var article = _context.Articles.Find(idArticle);
@@ -26,6 +28,7 @@ namespace GuildForum.Controllers {
       return Ok();
     }
 
+    [Authorize] // TODO TYLKO OSOBA KTORA TO UTWORZYŁA MOŻE GO USUNĄĆ, ALBO ADMIN
     [HttpPut("{idArticle}/comment/{idComment}")]
     public IActionResult UpdateComment(int idArticle, int idComment, ArticleComments comment) {
       var commentToFind = _context.ArticleCommentses
@@ -38,6 +41,7 @@ namespace GuildForum.Controllers {
       return Ok();
     }
 
+    [Authorize] // TODO TYLKO OSOBA KTORA TO UTWORZYŁA MOŻE GO USUNĄĆ, ALBO ADMIN
     [HttpDelete("{idArticle}/comment/{idComment}")]
     public IActionResult DeleteComment(int idArticle, int idComment) {
       var comment = _context.ArticleCommentses

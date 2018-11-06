@@ -13,7 +13,7 @@ namespace GuildForum.Controllers {
     public ArticleController(ForumContext context) {
       _context = context;
     }
-
+    [AllowAnonymous]
     [HttpGet]
     public IActionResult GetAllArticles() {
       var articles = _context.Articles
@@ -41,7 +41,7 @@ namespace GuildForum.Controllers {
         .ToList();
       return Ok(articles);
     }
-
+    [AllowAnonymous]
     [HttpGet("{id}")] // TODO ROLE FOR COMMENTS?
     public IActionResult GetArticleInfo(int id) {
       var article = _context.Articles
@@ -89,7 +89,7 @@ namespace GuildForum.Controllers {
       return Ok(article);
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")] // TODO MORE ROLES TO CREATE, UPDATE AND DELETE
     [HttpPost]
     public IActionResult CreateArticle(Article article) {
       _context.Articles.Add(article);
@@ -97,6 +97,7 @@ namespace GuildForum.Controllers {
       return Ok();
     }
 
+    [Authorize(Roles = "Admin")] // TODO MORE ROLES TO CREATE, UPDATE AND DELETE
     [HttpPut("{id}")]
     public IActionResult UpdateArticle(int id, Article article) {
       var articleToUpdate = _context.Articles.Find(id);
@@ -112,6 +113,7 @@ namespace GuildForum.Controllers {
       return Ok();
     }
 
+    [Authorize(Roles = "Admin")] // TODO MORE ROLES TO CREATE, UPDATE AND DELETE
     [HttpDelete("{id}")]
     public IActionResult DeleteArticle(int id) {
       var article = _context.Articles.Find(id);

@@ -16,6 +16,7 @@ namespace GuildForum.Controllers {
       _context = context;
     }
 
+    [AllowAnonymous]
     [HttpGet]
     public IActionResult GetEventsList() {
       var events = _context.Events
@@ -30,7 +31,7 @@ namespace GuildForum.Controllers {
       return Ok(events);
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")] // TODO
     [HttpPost]
     public IActionResult CreateEvent(Event newEvent) {
       _context.Events.Add(newEvent);
@@ -38,6 +39,7 @@ namespace GuildForum.Controllers {
       return Ok();
     }
 
+    [Authorize(Roles = "Admin")] // TODO
     [HttpPut("{idEvent}")]
     public IActionResult UpdateEvent(int idEvent, Event newEventContent) {
       var eventToUpdate = _context.Events.Find(idEvent);
@@ -52,6 +54,7 @@ namespace GuildForum.Controllers {
       return Ok();
     }
 
+    [Authorize(Roles = "Admin")] // TODO
     [HttpDelete("{idEvent}")]
     public IActionResult DeleteEvent(int idEvent) {
       var eventToRemove = _context.Events.Find(idEvent);

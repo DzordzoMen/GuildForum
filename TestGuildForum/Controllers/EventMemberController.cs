@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using GuildForum.Models;
 using GuildForum.Models.Events;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GuildForum.Controllers {
@@ -14,6 +15,7 @@ namespace GuildForum.Controllers {
       _context = context;
     }
 
+    [AllowAnonymous]
     [HttpGet("{idEvent}/members")]
     public IActionResult GetEventMembers(int idEvent) {
       var guildEvent = _context.Events
@@ -62,6 +64,7 @@ namespace GuildForum.Controllers {
       return Ok(guildEvent);
     }
 
+    [AllowAnonymous]
     [HttpPost("{idEvent}/members")]
     public IActionResult AddMember(int idEvent, EventMember member) {
       if (_context.Events.Find(idEvent) == null) return NotFound();
@@ -73,6 +76,7 @@ namespace GuildForum.Controllers {
       return Ok();
     }
 
+    [Authorize(Roles = "Admin")]  // TODO MORE ROLES TO CREATE, UPDATE AND DELETE
     [HttpPut("{idEvent}/members/{idMember}")]
     public IActionResult UpdateMember(int idEvent, int idMember, EventMember member) {
       var eventMember = _context.EventMembers
@@ -86,6 +90,7 @@ namespace GuildForum.Controllers {
       return Ok();
     }
 
+    [Authorize(Roles = "Admin")]  // TODO MORE ROLES TO CREATE, UPDATE AND DELETE or CREATOR?
     [HttpDelete("{idEvent}/members/{idMember}")]
     public IActionResult RemoveMember(int idEvent, int idMember) {
       var eventMember = _context.EventMembers

@@ -35,6 +35,10 @@ namespace GuildForum {
         options.Password.RequireNonAlphanumeric = false;
       });
 
+      services.ConfigureApplicationCookie(options => {
+        options.Cookie.Name = "GuildForumCookies";
+      });
+
       // zmiana linku gdzie ma przekierowac jak nie jestes zalogowany
       services.ConfigureApplicationCookie(options => {
         options.LoginPath = "/account/login";

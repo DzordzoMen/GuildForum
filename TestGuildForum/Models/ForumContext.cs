@@ -18,6 +18,7 @@ namespace GuildForum.Models {
     public DbSet<Article> Articles { get; set; }
     public DbSet<ArticleComments> ArticleCommentses { get; set; }
     public DbSet<IdentityRole> IdentityRoles { get; set; }
+    public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     public DbSet<IdentityUserRole<string>> IdentityUserRoles { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Group> Groups { get; set; }
