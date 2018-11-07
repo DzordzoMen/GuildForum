@@ -53,7 +53,7 @@ namespace GuildForum.Controllers {
               (userAndEventMember, group) => new { userAndEventMember.eventMember, userAndEventMember.user, group })
             .Where(userAndEventMember => userAndEventMember.eventMember.UserID == userAndEventMember.user.UserID)
             .Select(userAndEventMember => new {
-              userAndEventMember.eventMember.EventID,
+              userAndEventMember.eventMember.UserID,
               userAndEventMember.eventMember.Standby,
               userAndEventMember.user.Nick,
               userAndEventMember.group.GroupName,

@@ -23,7 +23,7 @@ namespace GuildForum.Controllers {
       if (article == null) return NotFound();
 
       comment.ArticleID = idArticle;
-      _context.ArticleCommentses.Add(comment);
+      _context.ArticleComments.Add(comment);
       _context.SaveChanges();
       return Ok();
     }
@@ -31,12 +31,12 @@ namespace GuildForum.Controllers {
     [Authorize] // TODO TYLKO OSOBA KTORA TO UTWORZYŁA MOŻE GO USUNĄĆ, ALBO ADMIN
     [HttpPut("{idArticle}/comment/{idComment}")]
     public IActionResult UpdateComment(int idArticle, int idComment, ArticleComments comment) {
-      var commentToFind = _context.ArticleCommentses
+      var commentToFind = _context.ArticleComments
         .SingleOrDefault(c => c.ArticleID == idArticle && c.CommentID == idComment);
       if (commentToFind == null) return NotFound();
 
       commentToFind.Content = comment.Content;
-      _context.ArticleCommentses.Update(commentToFind);
+      _context.ArticleComments.Update(commentToFind);
       _context.SaveChanges();
       return Ok();
     }
@@ -44,11 +44,11 @@ namespace GuildForum.Controllers {
     [Authorize] // TODO TYLKO OSOBA KTORA TO UTWORZYŁA MOŻE GO USUNĄĆ, ALBO ADMIN
     [HttpDelete("{idArticle}/comment/{idComment}")]
     public IActionResult DeleteComment(int idArticle, int idComment) {
-      var comment = _context.ArticleCommentses
+      var comment = _context.ArticleComments
         .SingleOrDefault(c => c.ArticleID == idArticle && c.CommentID == idComment);
       if (comment == null) return NotFound();
 
-      _context.ArticleCommentses.Remove(comment);
+      _context.ArticleComments.Remove(comment);
       _context.SaveChanges();
       return Ok();
     }

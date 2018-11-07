@@ -24,7 +24,7 @@ namespace GuildForum.Models.Articles {
 
     public byte[] Photo { get; set; }
 
-    public ICollection<ArticleComments> ArticleCommentses { get; set; }
+    public ICollection<ArticleComments> ArticleComments { get; set; }
 
     public User User { get; set; }
   }

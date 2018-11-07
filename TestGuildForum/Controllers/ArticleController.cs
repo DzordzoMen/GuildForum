@@ -42,28 +42,22 @@ namespace GuildForum.Controllers {
       return Ok(articles);
     }
     [AllowAnonymous]
-    [HttpGet("{id}")] // TODO ROLE FOR COMMENTS?
-    public IActionResult GetArticleInfo(int id) {
+    [HttpGet("{articleId}")] // TODO ROLE FOR COMMENTS?
+    public IActionResult GetArticleInfo(int articleId) {
       var article = _context.Articles
         .Join(_context.Users,
           art => art.UserID,
           user => user.UserID,
           (art, user) => new { art, user })
-        .GroupJoin(_context.ArticleCommentses,
-          entity => entity.art.ArticleID,
-          comments => comments.ArticleID,
-          (entity, comments) => new { entity.art, entity.user, comments })
         .Join(_context.IdentityUserRoles,
           entity => entity.user.IdentityID,
           userRole => userRole.UserId,
-          (entity, userRole) => new { entity.art, entity.user, entity.comments, userRole })
+          (entity, userRole) => new { entity.art, entity.user, userRole })
         .Join(_context.IdentityRoles,
           entity => entity.userRole.RoleId,
           role => role.Id,
-          (entity, role) => new { entity.art, entity.user, entity.comments, role })
-        .GroupBy(entity => entity.art.ArticleID)
-        .Select(grouping => grouping.FirstOrDefault(entity => entity.art.ArticleID == id))
-        .Where(entity => entity.art.ArticleID == id)
+          (entity, role) => new { entity.art, entity.user, role })
+        .Where(entity => entity.art.ArticleID == articleId)
         .Select(entity => new {
           entity.art.ArticleID,
           entity.art.PostDate,
@@ -72,12 +66,12 @@ namespace GuildForum.Controllers {
           entity.art.Title,
           entity.art.Content,
           entity.art.Photo,
-          articleComments = entity.comments
+          articleComments = _context.ArticleComments
           .Join(_context.Users,
             comment => comment.UserID,
             user => user.UserID,
             (comment, user) => new { comment, user })
-          .Where(artComment => artComment.comment.UserID == artComment.user.UserID)
+          .Where(artComment => artComment.comment.ArticleID == articleId)
           .Select(artComment => new {
             artComment.comment.CommentID,
             artComment.comment.PostDate,

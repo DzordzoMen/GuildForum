@@ -16,7 +16,7 @@ namespace GuildForum.Models {
     }
 
     public DbSet<Article> Articles { get; set; }
-    public DbSet<ArticleComments> ArticleCommentses { get; set; }
+    public DbSet<ArticleComments> ArticleComments { get; set; }
     public DbSet<IdentityRole> IdentityRoles { get; set; }
     public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     public DbSet<IdentityUserRole<string>> IdentityUserRoles { get; set; }
@@ -31,14 +31,18 @@ namespace GuildForum.Models {
       modelBuilder.Entity<EventMember>()
         .HasKey(m => new {m.EventID, m.UserID});
 
+      modelBuilder.Entity<Event>()
+        .Property(e => e.EventID)
+        .ValueGeneratedOnAdd();
+
       modelBuilder.Entity<ArticleComments>()
         .HasOne(a => a.Article)
-        .WithMany(ac => ac.ArticleCommentses)
+        .WithMany(ac => ac.ArticleComments)
         .HasForeignKey(a => a.ArticleID)
         .OnDelete(DeleteBehavior.Cascade);
 
       modelBuilder.Entity<Article>()
-        .HasMany(ac => ac.ArticleCommentses)
+        .HasMany(ac => ac.ArticleComments)
         .WithOne(a => a.Article)
         .HasForeignKey(a => a.ArticleID)
         .OnDelete(DeleteBehavior.Cascade);
