@@ -15,7 +15,7 @@ namespace GuildForum.Controllers {
       _roleManager = roleManager;
     }
 
-    [Authorize(Roles = "Admin")] // TODO 
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public IActionResult GetRoleList() {
       var roles = _roleManager.Roles.ToList();
@@ -23,8 +23,8 @@ namespace GuildForum.Controllers {
 
     }
 
-    // TODO DELETE
-    [Authorize(Roles = "Admin")] // TODO
+    // TODO DELETE?
+    [Authorize(Roles = "Admin")]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetRoleInfoAsync(string id) {
       var rank = await _roleManager.FindByIdAsync(id);
@@ -32,7 +32,7 @@ namespace GuildForum.Controllers {
       return Ok(rank);
     }
 
-    [Authorize(Roles = "Admin")] // TODO
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> CreateRoleAsync([FromBody] AddRole newRole) {
       var role = new IdentityRole { Name = newRole.Name };
@@ -40,7 +40,7 @@ namespace GuildForum.Controllers {
       return Ok();
     }
 
-    [Authorize(Roles = "Admin")] // TODO
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateRoleAsync(string id, string newName) {
       var role = await _roleManager.FindByIdAsync(id);
@@ -52,7 +52,7 @@ namespace GuildForum.Controllers {
       return Ok();
     }
 
-    [Authorize(Roles = "Admin")] // TODO
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteRoleAsync(string id) {
       var role = await _roleManager.FindByIdAsync(id);
