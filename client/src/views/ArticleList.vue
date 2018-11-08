@@ -1,0 +1,77 @@
+<template>
+    <div>
+      <b-row>
+        <b-col class="article-wrapper">
+          <b-card v-for="article in articles" v-bind:key="article.articleID">
+            <b-row>
+              <b-col>
+                <h4>
+                  {{ article.title }}
+                </h4>
+              </b-col>
+              <b-col offset-md="4">
+                <b-col>
+                  {{ article.nick }}
+                </b-col>
+
+                <b-col>
+                  <small class="text-muted">
+                    {{ article.roleName }}
+                  </small>
+                </b-col>
+              </b-col>
+            </b-row>
+
+            <b-row>
+              <b-col>
+                <p>
+                  {{ article.content }}
+                </p>
+              </b-col>
+            </b-row>
+
+            <b-row v-if="article.photo != null">
+              <b-col>
+                <b-img rounded src="https://picsum.photos/400/100" fluid-grow alt="Test" />
+                <!-- <b-card-img src="https://picsum.photos/400/100" alt="test2" fluid bottom /> -->
+              </b-col>
+            </b-row>
+
+            <b-row>
+              <b-col>
+                <small class="text-muted">
+                  {{ article.postDate }}
+                </small>
+              </b-col>
+            </b-row>
+          </b-card>
+        </b-col>
+      </b-row>
+    </div>
+</template>
+
+<script>
+export default {
+  name: 'articleList',
+  data() {
+    return {
+      articles: [],
+    };
+  },
+  created() {
+    this.$http.get('/api/article')
+      .then((response) => {
+        this.articles = response.body;
+      });
+  },
+};
+</script>
+
+
+<style lang="scss">
+  .article-wrapper {
+    & > div {
+      margin-bottom: 25px;
+    }
+  }
+</style>

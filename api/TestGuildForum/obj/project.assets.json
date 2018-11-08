@@ -12440,11 +12440,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mromanowski\\source\\repos\\git\\guildforum\\TestGuildForum\\GuildForum.csproj",
+      "projectUniqueName": "C:\\Users\\mromanowski\\source\\repos\\git\\guildforum\\api\\TestGuildForum\\GuildForum.csproj",
       "projectName": "GuildForum",
-      "projectPath": "C:\\Users\\mromanowski\\source\\repos\\git\\guildforum\\TestGuildForum\\GuildForum.csproj",
+      "projectPath": "C:\\Users\\mromanowski\\source\\repos\\git\\guildforum\\api\\TestGuildForum\\GuildForum.csproj",
       "packagesPath": "C:\\Users\\mromanowski\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mromanowski\\source\\repos\\git\\guildforum\\TestGuildForum\\obj\\",
+      "outputPath": "C:\\Users\\mromanowski\\source\\repos\\git\\guildforum\\api\\TestGuildForum\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
