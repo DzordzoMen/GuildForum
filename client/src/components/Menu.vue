@@ -21,13 +21,19 @@
         </b-nav-item>
 
         <b-nav-item>
+          <router-link to="/panel/events">
+            Events
+          </router-link>
+        </b-nav-item>
+
+        <b-nav-item>
           <router-link to="/panel">
             Back
           </router-link>
         </b-nav-item>
 
         <b-nav-item>
-          <router-link to="/" v-if="true">
+          <router-link to="/" v-if="this.loggedIn === false">
             Zaloguj się
           </router-link>
         </b-nav-item>
@@ -42,6 +48,14 @@
 <script>
 export default {
   name: 'menu',
+  data() {
+    return {
+      loggedIn: false,
+    };
+  },  // TODO ZASTANOWIC SIE CO TUTAJ DAC
+  created() {
+    this.loggedIn = localStorage.getItem('loggedIn');
+  }
 };
 </script>
 

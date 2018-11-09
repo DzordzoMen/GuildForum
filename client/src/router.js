@@ -4,8 +4,11 @@ import Router from 'vue-router';
 import Authorization from './views/Authorization.vue';
 import Panel from './views/Panel.vue';
 import About from './views/About.vue';
+import User from './views/User.vue';
 import ArticleList from './views/ArticleList.vue';
 import Article from './views/Article.vue';
+import EventList from './views/EventList.vue';
+import Event from './views/Event.vue';
 
 Vue.use(Router);
 
@@ -38,6 +41,15 @@ export default new Router({
         },{
           path: '/panel/user/:userId',
           name: 'user',
+          component: User,
+        },{
+          path: '/panel/events',
+          name: 'eventList',
+          component: EventList,
+        },{
+          path: '/panel/event/:eventId',
+          name: 'event',
+          component: Event,
         }
       ]
     }

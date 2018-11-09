@@ -49,12 +49,16 @@ export default {
         password: this.form.password,
       }).then((data) => {
         if (data.status == 200)
+          this.$store.commit('setLoggedIn');
+          // localStorage.setItem('userId', data)
           this.$router.push('panel');
       });
     },
   },
   created() {
-    // check cookie
+    const userIsLoggedIn = localStorage.getItem('loggedIn');
+    if (userIsLoggedIn === 'true') 
+      this.$router.push('panel');
   },
 };
 </script>
