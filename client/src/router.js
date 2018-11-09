@@ -1,12 +1,13 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
-import Home from './views/Home.vue'
-import Panel from './views/Panel.vue'
-import About from './views/About.vue'
-import ArticleList from './views/ArticleList.vue'
+import Authorization from './views/Authorization.vue';
+import Panel from './views/Panel.vue';
+import About from './views/About.vue';
+import ArticleList from './views/ArticleList.vue';
+import Article from './views/Article.vue';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   mode: 'history',
@@ -14,8 +15,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'authorization',
+      component: Authorization,
     },
     {
       path: '/panel',
@@ -30,8 +31,15 @@ export default new Router({
           path: '/panel/articles',
           name: 'articleList',
           component: ArticleList,
+        },{
+          path: '/panel/article/:articleId',
+          name: 'article',
+          component: Article,
+        },{
+          path: '/panel/user/:userId',
+          name: 'user',
         }
       ]
     }
   ]
-})
+});

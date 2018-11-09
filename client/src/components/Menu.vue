@@ -26,6 +26,12 @@
           </router-link>
         </b-nav-item>
 
+        <b-nav-item>
+          <router-link to="/" v-if="true">
+            Zaloguj się
+          </router-link>
+        </b-nav-item>
+
       </b-navbar-nav>
     </b-collapse>
 

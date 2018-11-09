@@ -31,7 +31,8 @@ namespace GuildForum.Controllers {
           (entity, role) => new {entity.user, entity.article, role})
         .Select(entity => new {
           entity.article.ArticleID,
-          entity.user.Nick,
+          author = entity.user.Nick,
+          entity.user.UserID,
           roleName = entity.role.Name,
           entity.article.PostDate,
           entity.article.Title,
@@ -61,7 +62,8 @@ namespace GuildForum.Controllers {
         .Select(entity => new {
           entity.art.ArticleID,
           entity.art.PostDate,
-          entity.user.Nick,
+          author = entity.user.Nick,
+          entity.user.UserID,
           roleName = entity.role.Name,
           entity.art.Title,
           entity.art.Content,

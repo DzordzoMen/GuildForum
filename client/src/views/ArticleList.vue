@@ -4,14 +4,14 @@
         <b-col class="article-wrapper">
           <b-card v-for="article in articles" v-bind:key="article.articleID">
             <b-row>
-              <b-col>
+              <b-col @click="showArticleInfo(article.articleID)" id="title">
                 <h4>
                   {{ article.title }}
                 </h4>
               </b-col>
               <b-col offset-md="4">
-                <b-col>
-                  {{ article.nick }}
+                <b-col @click="showUser(article.userID)" id="author">
+                  {{ article.author }}
                 </b-col>
 
                 <b-col>
@@ -33,7 +33,6 @@
             <b-row v-if="article.photo != null">
               <b-col>
                 <b-img rounded src="https://picsum.photos/400/100" fluid-grow alt="Test" />
-                <!-- <b-card-img src="https://picsum.photos/400/100" alt="test2" fluid bottom /> -->
               </b-col>
             </b-row>
 
@@ -64,6 +63,14 @@ export default {
         this.articles = response.body;
       });
   },
+  methods: {
+    showArticleInfo(articleId) {
+      this.$router.push(`/panel/article/${articleId}`);
+    },
+    showUser(userId) {
+      this.$router.push(`/panel/user/${userId}`);
+    }
+  }
 };
 </script>
 
@@ -73,5 +80,16 @@ export default {
     & > div {
       margin-bottom: 25px;
     }
+  }
+
+  #title:hover {
+    cursor: pointer;
+    color: dodgerblue;
+  }
+
+  #author:hover {
+    cursor: pointer;
+    color:#88f;
+    // blueviolet
   }
 </style>
