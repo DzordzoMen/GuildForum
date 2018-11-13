@@ -23,12 +23,12 @@
             </b-col>
           </b-col>
         </b-row>
-          <b-col style="padding-top:20px;">
-            <p>
-              {{ article.content }}
-            </p>
-          </b-col>
-        <b-row>
+
+        <b-col style="padding-top:20px;">
+          <p>
+            {{ article.content }}
+          </p>
+        </b-col>
 
         <b-row v-if="article.photo != null">
           <b-col>
@@ -36,8 +36,6 @@
           </b-col>
         </b-row>
 
-
-        </b-row>
         <b-row>
           <b-col>
             <small class="text-muted">
@@ -55,6 +53,7 @@
         
         <b-row>
           <b-col cols="1">
+            <!-- TODO CHANGE ARTICLEID TO USERID -->
             <h4 class="mt-0 mb-1" @click="showUser(article.articleID)" id="user">
               {{ comment.nick }} 
             </h4>
