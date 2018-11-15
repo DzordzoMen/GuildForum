@@ -77,7 +77,7 @@
 
 
 <script>
-import CreateArticle from './createForms/createArticle.vue';
+import CreateArticle from './forms/createArticle.vue';
 
 export default {
   name: 'menu',

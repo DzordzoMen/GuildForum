@@ -63,22 +63,7 @@
         border-variant="secondary"
         style="border-top:none;"
       >
-        <b-form @submit="onSubmit">
-          <b-form-group
-            id="commentLabel"
-            label="Dodaj komentarz:"
-            label-for="commentInput"
-          >
-            <b-form-input
-              id="commentInput"
-              type="text"
-              v-model="form.commentForm"
-              required
-              placeholder="Treść komentarza"
-            />
-          </b-form-group>
-          <b-button type="submit" variant="primary">Wyślij</b-button>
-        </b-form>
+        <add-comment :article-id="article.articleID" />
       </b-card>
     </b-collapse>
 
@@ -118,8 +103,13 @@
 
 
 <script>
+import AddComment from '../components/forms/addComment.vue';
+
 export default {
   name: 'article',
+  components: {
+    AddComment,
+  },
   data() {
     return {
       article: {
@@ -133,9 +123,6 @@ export default {
         // photo: String,
         // articleComments: [],
       },
-      form: {
-        commentContent: '',
-      }
     };
   },
   created() {
@@ -149,10 +136,6 @@ export default {
     showUser(userId) {
       this.$router.push(`/panel/user/${userId}`);
     },
-    onSubmit(event) {
-      console.log(this.form.commentContent);
-
-    }
   },
 };
 </script>
