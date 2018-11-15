@@ -45,3 +45,12 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+  .event-wrapper {
+    & > div {
+      margin-bottom: 25px;
+    }
+  }
+</style>
+

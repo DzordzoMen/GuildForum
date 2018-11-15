@@ -12,7 +12,7 @@
             </h4>
           </b-col>
           <b-col offset-md="4">
-            <b-col id="user">
+            <b-col @click="showUser(event.authorID)" id="user">
               {{ event.nick }}
             </b-col>
             <b-col>
@@ -141,7 +141,7 @@ export default {
       const id = this.event.eventID;
       this.$http.delete(`/api/event/${id}/members/${idMember}`)
         .then(() => {
-          // TODO CHANGE STANDBY
+          // TODO CHANGE STANDBY in array
       });
     },
     updateStatus(idMember, status) {
@@ -151,7 +151,10 @@ export default {
       }).then(() => {
           // TODO CHANGE STANDBY
       });
-    }
+    },
+    showUser(userId) {
+      this.$router.push(`/panel/user/${userId}`);
+    },
   },
 };
 </script>

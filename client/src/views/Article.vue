@@ -30,7 +30,7 @@
           </p>
         </b-col>
 
-        <b-row v-if="article.photo != null">
+        <b-row v-if="article.photo != null" style="padding: 10px 0;">
           <b-col>
             <b-img rounded src="https://picsum.photos/1400/1100" fluid-grow alt="Test" />
           </b-col>
@@ -42,10 +42,45 @@
               {{ article.postDate }}
             </small>
           </b-col>
+
+          <b-col offset-md="1" style="margin-right:10px;">
+            <b-button
+              size="sm"
+              variant="warning"
+              v-b-toggle.addComment
+            >
+              Dodaj komentarz
+            </b-button>
+          </b-col>
         </b-row>
 
       </b-media>
     </b-card>
+
+    <b-collapse id="addComment">
+      <!-- TODO COMPONENT -->
+      <b-card
+        border-variant="secondary"
+        style="border-top:none;"
+      >
+        <b-form @submit="onSubmit">
+          <b-form-group
+            id="commentLabel"
+            label="Dodaj komentarz:"
+            label-for="commentInput"
+          >
+            <b-form-input
+              id="commentInput"
+              type="text"
+              v-model="form.commentForm"
+              required
+              placeholder="Treść komentarza"
+            />
+          </b-form-group>
+          <b-button type="submit" variant="primary">Wyślij</b-button>
+        </b-form>
+      </b-card>
+    </b-collapse>
 
     <ul class="comment-area">
       <b-media v-for="comment in article.articleComments" v-bind:key="comment.commentId" tag="li">
@@ -98,6 +133,9 @@ export default {
         // photo: String,
         // articleComments: [],
       },
+      form: {
+        commentContent: '',
+      }
     };
   },
   created() {
@@ -111,6 +149,10 @@ export default {
     showUser(userId) {
       this.$router.push(`/panel/user/${userId}`);
     },
+    onSubmit(event) {
+      console.log(this.form.commentContent);
+
+    }
   },
 };
 </script>
