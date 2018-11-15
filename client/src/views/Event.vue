@@ -35,6 +35,17 @@
               {{ event.eventDate }}
             </small>
           </b-col>
+          <b-col offset-md="1" style="margin-right:10px;">
+            <b-button
+              size="sm"
+              variant="success"
+              @click="signUp(event.eventID)"
+              v-if="true"
+            >
+            <!-- TODO {v-if} filt list when userId in list dont show -->
+              Zapisz się
+            </b-button>
+          </b-col>
         </b-row>
 
       </b-media>
@@ -155,6 +166,12 @@ export default {
     showUser(userId) {
       this.$router.push(`/panel/user/${userId}`);
     },
+    signUp(id) {
+      this.$http.post(`/api/event/${id}/members`, {
+        userId: 5,
+        standby: 'Oczekiwanie',
+      });
+    }
   },
 };
 </script>

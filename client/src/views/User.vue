@@ -20,12 +20,12 @@ export default {
     };
   },
   created() {
-    const id = this.$route.params.userId;
+    // const id = this.$route.params.userId;
     // this.$http.get(`/api/user/${id}`)
     //   .then((response) => {
     //     this.article = response.body;
     //   });
-    console.log(id);
+    // console.log(id);
   },
 }
 </script>

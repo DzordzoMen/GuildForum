@@ -63,7 +63,7 @@ export default {
     };
   },
   methods: {
-    onSubmit(event) {
+    onSubmit() {
       this.$http.post('/api/article/', {
         title: this.form.title,
         content: this.form.content,
@@ -71,7 +71,7 @@ export default {
         userID: this.form.userID,
         photo: this.form.photo,
       }).then(() => {
-        console.log("k");
+        // TODO
       });
     }
   }

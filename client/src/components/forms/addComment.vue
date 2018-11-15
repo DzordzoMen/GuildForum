@@ -31,7 +31,7 @@ export default {
     articleId: null,
   },
   methods: {
-    onSubmit(event) {
+    onSubmit() {
       // const id = this.$parent.article.articleID;
       const id = this.articleId;
       this.$http.post(`/api/article/${id}/comment`, {
