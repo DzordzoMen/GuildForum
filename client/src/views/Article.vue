@@ -51,6 +51,15 @@
             >
               Dodaj komentarz
             </b-button>
+            <b-button
+              size="sm"
+              variant="danger"
+              style="margin-left:5px;"
+              v-if="article.userID === 1"
+              v-b-modal.deleteArticle
+            >
+              Usuń 
+            </b-button>
           </b-col>
         </b-row>
 
@@ -58,7 +67,6 @@
     </b-card>
 
     <b-collapse id="addComment">
-      <!-- TODO COMPONENT -->
       <b-card
         border-variant="secondary"
         style="border-top:none;"
@@ -67,6 +75,25 @@
       </b-card>
     </b-collapse>
 
+    <b-modal
+      id="deleteArticle"
+      title="Potiwerdzenie usunięcia artykułu"
+      hide-footer
+    >
+      <div>
+        <p>
+          Czy aby na pewno chesz usunąć "<i>{{ article.title }}</i>"?
+        </p>
+      </div>
+      <b-button
+        variant="danger"
+        @click="removeArticle(article.articleID)"
+        block
+      >
+        Usuń artykuł
+      </b-button>
+    </b-modal>
+
     <ul class="comment-area">
       <b-media v-for="comment in article.articleComments" v-bind:key="comment.commentId" tag="li">
         <b-img rounded slot="aside" blank blank-color="#abc" width="64" alt="placeholder" />
@@ -74,14 +101,14 @@
         <b-row>
           <b-col cols="1">
             <!-- TODO CHANGE ARTICLEID TO USERID -->
-            <h4 class="mt-0 mb-1" @click="showUser(article.articleID)" id="user">
+            <h6 class="mt-0 mb-1" @click="showUser(article.articleID)" id="user">
               {{ comment.nick }} 
-            </h4>
+            </h6>
           </b-col>
         </b-row>
 
         <b-row>
-          <b-col>
+          <b-col style="margin-left:10px;">
             <p>
               {{ comment.content }}
             </p>
@@ -136,6 +163,12 @@ export default {
     showUser(userId) {
       this.$router.push(`/panel/user/${userId}`);
     },
+    removeArticle(id) {
+      this.$http.delete(`/api/article/${id}`)
+        .then(() => {
+          this.$router.push('/panel/articles');
+        });
+    }
   },
 };
 </script>
@@ -147,7 +180,9 @@ export default {
       margin-top: 25px;
     }
   }
-
+  #user {
+    color: #111;
+  }
   #user:hover {
     cursor: pointer;
     color:#88f;

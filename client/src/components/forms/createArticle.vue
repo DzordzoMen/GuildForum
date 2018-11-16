@@ -71,7 +71,7 @@ export default {
         userID: this.form.userID,
         photo: this.form.photo,
       }).then(() => {
-        // TODO
+        // TODO refresh?
       });
     }
   }
