@@ -10,12 +10,6 @@
         <b-navbar-nav class="ml-auto">
 
           <b-nav-item>
-            <router-link to="/panel/about">
-              About
-            </router-link>
-          </b-nav-item>
-
-          <b-nav-item>
             <router-link to="/panel/articles">
               Articles
             </router-link>
@@ -63,6 +57,7 @@
         <b-button
           size="md"
           variant="success"
+          v-b-modal.createEvent
           style="marginRight:10px;"
         >
           Create Event
@@ -71,6 +66,7 @@
     </b-collapse>
 
     <create-article />
+    <create-event />
 
   </div>
 </template>
@@ -78,11 +74,13 @@
 
 <script>
 import CreateArticle from './forms/createArticle.vue';
+import CreateEvent from './forms/createEvent.vue';
 
 export default {
   name: 'menu',
   components: {
-    CreateArticle
+    CreateArticle,
+    CreateEvent,
   },
   data() {
     return {

@@ -3,7 +3,6 @@ import Router from 'vue-router';
 
 import Authorization from './views/Authorization.vue';
 import Panel from './views/Panel.vue';
-import About from './views/About.vue';
 import User from './views/User.vue';
 import ArticleList from './views/ArticleList.vue';
 import Article from './views/Article.vue';
@@ -27,10 +26,6 @@ export default new Router({
       component: Panel,
       children: [
         {
-          path: '/panel/about',
-          name: 'about',
-          component: About,
-        },{
           path: '/panel/articles',
           name: 'articleList',
           component: ArticleList,

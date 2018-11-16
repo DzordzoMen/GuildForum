@@ -32,7 +32,7 @@
 
         <b-row v-if="article.photo != null" style="padding: 10px 0;">
           <b-col>
-            <b-img rounded src="https://picsum.photos/1400/1100" fluid-grow alt="Test" />
+            <b-img rounded src="https://picsum.photos/500/200" fluid-grow alt="Test" />
           </b-col>
         </b-row>
 
